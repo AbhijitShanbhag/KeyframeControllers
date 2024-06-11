@@ -204,9 +204,6 @@ Duration handling shit. Don't modify this also
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.duration-input:focus-within {
-  box-shadow: 0 0 10px rgba(2, 253, 245, 0.5);
-}
 
 .duration-input .title {
   display: flex;
