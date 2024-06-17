@@ -9,19 +9,33 @@ import playImage from './assets/cssIcons/playButton.png';
 import pauseImage from './assets/cssIcons/pauseButton.png';
 import loopActiveImage from './assets/cssIcons/loopActive.png';
 import loopInactiveImage from './assets/cssIcons/loopInactive.png';
+import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
-const App = () => {
+export default function App() {
     const [exportTrigger, setExportTrigger] = useState(null);
     const [importFile, setImportFile] = useState(null);
+    // The above are self-explanatory
+
     const [animationControl, setAnimationControl] = useState('pause');
+    // Setting the default state of animationControl, to Pause. Loading model, itself takes the Pause State
+
     const [loop, setLoop] = useState(false);
+    // Loop state is set to False
+
     const [finalPosition, setFinalPosition] = useState([0, 0, 0]);
     const [finalScale, setFinalScale] = useState([1, 1, 1]);
     const [finalRotation, setFinalRotation] = useState([0, 0, 0]);
+    // Initialisation of the final keyfrane state values
+
     const [duration, setDuration] = useState(5);
+    // Initialisation of duration keyframe values
+
     const [availableAnimations, setAvailableAnimations] = useState([]);
     const [selectedAnimations, setSelectedAnimations] = useState([]);
+    // Available and Set Available animations as well as selectedAnimations
+
     const [playKeyframeAnimation, setPlayKeyframeAnimation] = useState(false);
+    // Keyframe animations selection is handled accordingly over here
 
     const handleImport = (event) => {
         const file = event.target.files[0];
@@ -29,15 +43,24 @@ const App = () => {
             setImportFile(file);
         }
     };
+    // Importing the object, and if taken multiple files, select the first selected file, and accordingly associate the file with the setImportFile
 
     const togglePlayPause = () => {
         setAnimationControl(prev => (prev === 'play' ? 'pause' : 'play'));
     };
+    // Animation Play Button Toggler
 
     const handlePositionChange = (e, index) => {
+        // e Refers to the Field change event, and index refers to the index of the change value. Specifically optimises to that specific field
+
         const newPos = [...finalPosition];
+        // Creating a copy of my final position array
+
         newPos[index] = parseFloat(e.target.value);
+        // Parse as Float value (the input fields)
+
         setFinalPosition(newPos);
+        // Set the Float Values
     };
 
     const handleScaleChange = (e, index) => {
@@ -51,17 +74,26 @@ const App = () => {
         newRot[index] = parseFloat(e.target.value);
         setFinalRotation(newRot);
     };
+    // All work the same way as handlePositionChange
 
     const handleDurationChange = (e) => {
         setDuration(parseFloat(e.target.value));
     };
+    // Works the same way
 
     const handleAnimationSelect = (animationName) => {
+        // Name of animation that is toggled in the collection
+
         setSelectedAnimations(prev => {
+            // prev holds the previous state of array
             if (prev.includes(animationName)) {
+                // Tests the collection of animations that are included. If my toggled animation present previously in the list, I need to remove it. Handled over here
+
                 return prev.filter(name => name !== animationName);
+                // The filter, will take up the condition. If matched, these are included, else not
             } else {
                 return [...prev, animationName];
+                // It means it was not present and I ma adding it to the collection
             }
         });
     };
@@ -74,8 +106,11 @@ const App = () => {
                 const loader = new GLTFLoader();
                 loader.parse(contents, '', function (gltf) {
                     const animations = gltf.animations.map(animation => animation.name);
+                    // Over each iteration, return back and make an array of animation.name
+
                     setAvailableAnimations(animations);
                     setSelectedAnimations(animations);
+                    // All are selected by default
                 });
             };
             reader.readAsArrayBuffer(importFile);
@@ -133,5 +168,3 @@ const App = () => {
         </>
     );
 };
-
-export default App;

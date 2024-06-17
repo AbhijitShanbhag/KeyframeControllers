@@ -1,5 +1,9 @@
 import React from 'react';
 
+// All of these are statebased implementations discused before that return pure JSX components. So I do not think, commenting here is necessary
+
+
+
 const AnimationControls = ({
                                finalPosition,
                                finalScale,
