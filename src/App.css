@@ -59,7 +59,7 @@ button:focus {
 }
 
 /*
-@Rao, chaning complete UI, to match for you know more like how Vision Pro, and other AR VR devices look like. Don't change any stuff over here, without letting me know.
+@Rao, chaning complete UI Don't change any stuff over here, without letting me know.
  */
 .input-container {
   position: absolute;
@@ -69,8 +69,6 @@ button:focus {
   /*
   Sexiest Thing, WebKit ever Made. Chromium Sucks @Rao
    */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   padding: 10px;
   border-radius: 30px;
   font-family: Helvetica, sans-serif;
